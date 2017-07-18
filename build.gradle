@@ -1,0 +1,22 @@
+group 'ru.training.javalab'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url 'http://repo.spring.io/libs-milestone' }
+    maven { url 'http://repo.spring.io/libs-release' }
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-context:+'
+
+    compileOnly 'org.projectlombok:lombok:+'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-params:+',
+            'org.hamcrest:java-hamcrest:+'
+}
