@@ -5,13 +5,13 @@ import lab.model.SimpleCountry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import lab.model.UsualPerson;
 
 public class HelloWorldTest {
 
-    protected static final String APPLICATION_CONTEXT_XML_FILE_NAME = "src/test/resources/application-context.xml";
+    protected static final String APPLICATION_CONTEXT_XML_FILE_NAME = "application-context.xml";
 
     private Person expectedPerson;
 
@@ -19,7 +19,7 @@ public class HelloWorldTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        context = new FileSystemXmlApplicationContext(
+        context = new ClassPathXmlApplicationContext(
                 new String[]{APPLICATION_CONTEXT_XML_FILE_NAME});
         expectedPerson = getExpectedPerson();
     }
