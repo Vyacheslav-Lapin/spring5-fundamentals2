@@ -6,6 +6,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <bean class="lab.model.RandomIntInjectionAnnotationBeanPostProcessor"/>
+
     <bean id="person" class="lab.model.UsualPerson">
         <property name="name" value="John Smith"/>
         <property name="age" value="35"/>
