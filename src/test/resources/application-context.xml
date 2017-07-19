@@ -5,9 +5,19 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="person" class="lab.model.UsualPerson"
+          p:country-ref="country"
           p:name="John Smith"
           p:age="35"
-          p:country-ref="country"/>
+          p:height="1.78"
+          p:programmer="true">
+        <property name="contacts">
+            <list>
+                <value>asd@asd.ru</value>
+                <value>+7-234-456-67-89</value>
+            </list>
+        </property>
+
+    </bean>
 
     <bean id="country" class="lab.model.SimpleCountry"
           p:id="1"
