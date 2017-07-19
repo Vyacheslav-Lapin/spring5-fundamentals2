@@ -24,7 +24,6 @@ class HelloWorldTest {
 	@Test
 	void testInitPerson() {
 		assertEquals(expectedPerson, context.getBean("person"));
-//		System.out.println(person);
 	}
 
 	static UsualPerson getExpectedPerson() {
