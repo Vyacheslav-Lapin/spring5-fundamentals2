@@ -10,6 +10,8 @@ import java.util.Random;
 
 public class RandomIntInjectionAnnotationBeanPostProcessor implements BeanPostProcessor {
 
+    private static final Random rand = new Random();
+
     @Nullable
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
@@ -20,12 +22,10 @@ public class RandomIntInjectionAnnotationBeanPostProcessor implements BeanPostPr
                 int min = annotation.min();
                 int max = annotation.max();
 
-                Random rand = new Random();
-
-                int result = rand.nextInt(max - min) + min;
+                int randomizedAge = rand.nextInt(max - min) + min;
 
                 field.setAccessible(true);
-                ReflectionUtils.setField(field, bean, result);
+                ReflectionUtils.setField(field, bean, randomizedAge);
             }
         }
 
