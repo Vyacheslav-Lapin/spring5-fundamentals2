@@ -14,10 +14,11 @@ repositories {
 
 dependencies {
     compile 'org.springframework:spring-context:+'
+    compile 'org.apache.logging.log4j:log4j-core:+'
 
     compileOnly 'org.projectlombok:lombok:+'
 
-    testCompile 'org.junit.jupiter:junit-jupiter-params:+',
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.0.0-M4',
             'org.hamcrest:java-hamcrest:+'
 }
 
