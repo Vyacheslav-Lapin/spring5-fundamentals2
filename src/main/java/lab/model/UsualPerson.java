@@ -1,8 +1,9 @@
 package lab.model;
 
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.*;
 
 @Data
 public class UsualPerson implements Person {
@@ -18,4 +19,5 @@ public class UsualPerson implements Person {
     public void sayHello(Person person) {
         System.out.printf("Hello, %s, I`m %s%n", person.getName(), name);
     }
+
 }
