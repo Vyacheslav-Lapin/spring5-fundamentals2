@@ -25,6 +25,7 @@ class HelloWorldTest {
 
 	@Test
 	void testInitPerson() {
+//		Person person = ;
 		assertEquals(expectedPerson, context.getBean("person"));
 //		System.out.println(person);
 	}
