@@ -32,7 +32,7 @@ dependencies {
             'org.projectlombok:lombok:+',
             'edu.washington.cs.types.checker:checker-framework:+'
 
-    testCompile 'org.junit.jupiter:junit-jupiter-api:+',
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M4',
             'org.hamcrest:java-hamcrest:+',
             'org.springframework:spring-test:+'
 }
