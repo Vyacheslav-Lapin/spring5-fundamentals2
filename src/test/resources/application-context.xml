@@ -2,16 +2,36 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="person" class="lab.model.UsualPerson"
           p:country-ref="country"
           p:name="John Smith"
-          p:age="35"/>
+          p:age="35"
+          p:height="1.78"
+          p:programmer="true"
+          p:contacts-ref="contacts"/>
 
     <bean id="country" class="lab.model.SimpleCountry"
           p:id="1"
           p:name="Russia"
           p:codeName="RU"/>
+
+    <bean id="contact1" class="lab.model.SimpleContact"
+          p:email="asd@asd.ru"
+          p:phoneNumber="+7-234-456-67-89"/>
+    <bean id="contact2" class="lab.model.SimpleContact"
+          p:email="asdasd21e12dw@sddasd21asd.ru"
+          p:phoneNumber="+7-000-000-67-89"/>
+
+    <bean id="contacts" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="contact1"/>
+                <ref bean="contact2"/>
+            </list>
+        </constructor-arg>
+    </bean>
 </beans>

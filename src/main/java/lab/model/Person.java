@@ -6,10 +6,16 @@ public interface Person {
     void sayHello(Person person);
 
     int getId();
+
     String getName();
+
     Country getCountry();
+
     int getAge();
+
     float getHeight();
+
     boolean isProgrammer();
-    List<String> getContacts();
+
+    List<Contact> getContacts();
 }
