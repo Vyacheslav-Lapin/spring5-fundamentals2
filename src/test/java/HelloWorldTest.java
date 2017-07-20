@@ -1,9 +1,11 @@
+import lab.model.Person;
 import lab.model.SimpleCountry;
 import lab.model.UsualPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,7 +26,6 @@ class HelloWorldTest {
 	@Test
 	void testInitPerson() {
 		assertEquals(expectedPerson, context.getBean("person"));
-//		System.out.println(person);
 	}
 
 	static UsualPerson getExpectedPerson() {
