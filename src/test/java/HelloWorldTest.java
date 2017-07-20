@@ -7,6 +7,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class HelloWorldTest {
 
@@ -37,5 +38,13 @@ class HelloWorldTest {
 						.setId(1)
 						.setName("Russia")
 						.setCodeName("RU"));
+	}
+
+	@Test
+	void testThatPersonsAreNotEqual() {
+		Person person1 = context.getBean("person", Person.class);
+		Person person2 = context.getBean("newPerson", Person.class);
+
+		assertNotEquals(person1,person2);
 	}
 }

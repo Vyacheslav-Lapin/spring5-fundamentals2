@@ -10,6 +10,12 @@
         <property name="country" ref="simpleCountry"/>
     </bean>
 
+    <bean id="newPerson" class="lab.model.UsualPerson">
+        <property name="name" value="Ilya Oblomov"/>
+        <property name="age" value="32"/>
+        <property name="country" ref="simpleCountry"/>
+    </bean>
+
     <bean id="simpleCountry" class="lab.model.SimpleCountry">
         <property name="id" value="1"/>
         <property name="name" value="Russia"/>
