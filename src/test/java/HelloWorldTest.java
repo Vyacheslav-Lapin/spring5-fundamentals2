@@ -29,7 +29,7 @@ class HelloWorldTest {
 //		System.out.println(person);
     }
 
-    private UsualPerson getExpectedPerson() {
+    static UsualPerson getExpectedPerson() {
         return new UsualPerson()
                 .setAge(35)
                 .setName("John Smith")
