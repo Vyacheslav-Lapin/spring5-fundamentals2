@@ -5,10 +5,21 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+<<<<<<< 5904e788b920af2aff17608ab8d96db2693f93ce
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <import resource="ioc.xml"/>
     <aop:aspectj-autoproxy/>
+=======
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="ioc.xml"/>
+
+	<aop:aspectj-autoproxy/>
+
+	<bean id="bar" class="lab.aop.ApuBar" />
+	<bean class="lab.aop.Politeness"/>
+>>>>>>> lab5 start
 
 </beans>

@@ -47,5 +47,4 @@ public class Politeness {
         System.out.println("See you!");
         return retVal;
     }
-
 }
