@@ -3,30 +3,30 @@ import lab.model.SimpleCountry;
 import lab.model.UsualPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration("classpath:application-context.xml")
 class HelloWorldTest {
-
-	private static final String APPLICATION_CONTEXT_XML_FILE_NAME = "src/test/resources/application-context.xml";
 
 	private UsualPerson expectedPerson;
 
-	private BeanFactory context;
+	@Autowired
+	private Person person;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		context = new FileSystemXmlApplicationContext(APPLICATION_CONTEXT_XML_FILE_NAME);
 		expectedPerson = getExpectedPerson();
 	}
 
 	@Test
 	void testInitPerson() {
-		Person person = context.getBean("person", Person.class);
 		assertEquals(expectedPerson, person);
-//		System.out.println(person);
 	}
 
 	private UsualPerson getExpectedPerson() {
