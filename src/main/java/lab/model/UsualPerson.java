@@ -16,6 +16,6 @@ public class UsualPerson implements Person {
 
     @Override
     public void sayHello(Person person) {
-        System.out.printf("Hello, %s, I`m %s%n", person.getName(), name);
+        System.out.printf("Hello, %s, I`m %s%n!", person.getName(), name);
     }
 }
