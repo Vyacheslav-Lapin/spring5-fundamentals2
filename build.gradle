@@ -21,18 +21,23 @@ test.testLogging.showStandardStreams = true
 dependencies {
     compile 'org.springframework:spring-context:+',
 
-            // Common
-            'org.apache.logging.log4j:log4j-core:+',
-            'io.vavr:vavr:+',
-            'org.codehaus.groovy:groovy-all:+',
-            'com.aol.simplereact:cyclops-react:+'
+            // AOP
+            'org.aspectj:aspectjrt:+',
+            'org.aspectj:aspectjweaver:+',
+            'aopalliance:aopalliance:+',
 
-    compileOnly 'org.apache.tomcat:tomcat-api:+',
+            // Common
+            'org.apache.logging.log4j:log4j-core:+'//,
+//            'io.vavr:vavr:+',
+//            'org.codehaus.groovy:groovy-all:+',
+//            'com.aol.simplereact:cyclops-react:+'
+
+    compileOnly 'org.projectlombok:lombok:+',
+//            'org.apache.tomcat:tomcat-api:+',
 //            'org.apache.tomcat:tomcat-jsp-api:+',
-            'org.projectlombok:lombok:+',
             'edu.washington.cs.types.checker:checker-framework:+'
 
-    testCompile 'org.junit.jupiter:junit-jupiter-api:+',
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M4',
             'org.hamcrest:java-hamcrest:+',
             'org.springframework:spring-test:+'
 }
