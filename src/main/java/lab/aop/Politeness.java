@@ -3,37 +3,44 @@ package lab.aop;
 import lab.model.Person;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 
 @Aspect
 public class Politeness {
 
-    @Before("execution(* sellSquishee(..))")
-    public void sayHello(JoinPoint joinPiont) {
-        AopLog.append("Hello " + ((Person) joinPiont.getArgs()[0]).getName() + ". How are you doing? \n");
+    @Pointcut("execution(* Bar.sellSquishee(..))")
+    public void deal() {
     }
 
-    @AfterReturning(pointcut = "execution(* sellSquishee(..))",
+    @Before("deal()")
+    public void sayHello(JoinPoint joinPoint) {
+        AopLog.append("Hello " + ((Person) joinPoint.getArgs()[0]).getName() + ". How are you doing? \n");
+    }
+
+    @AfterReturning(pointcut = "deal()",
             returning = "retVal", argNames = "retVal")
     public void askOpinion(Object retVal) {
         AopLog.append("Is " + ((Squishee) retVal).getName() + " Good Enough? \n");
     }
 
+    @AfterThrowing("deal()")
     public void sayYouAreNotAllowed() {
         AopLog.append("Hmmm... \n");
     }
 
+    @After("deal()")
     public void sayGoodBye() {
         AopLog.append("Good Bye! \n");
     }
 
+
+    @Around("deal()")
     public Object sayPoliteWordsAndSell(ProceedingJoinPoint pjp) throws Throwable {
         AopLog.append("Hi! \n");
-        Object retVal = pjp.proceed();
+        //we actually don't have to call this method but another aspects could be broken
+        Object reternedValue = pjp.proceed();
         AopLog.append("See you! \n");
-        return retVal;
+        return new Squishee("Unusual Squishee");
     }
 
 }

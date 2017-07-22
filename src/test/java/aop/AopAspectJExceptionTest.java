@@ -18,21 +18,21 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
 @ContextConfiguration("classpath:aop.xml")
 class AopAspectJExceptionTest {
 
-	@Autowired
-	private Bar bar;
-    
-	@Autowired
+    @Autowired
+    private Bar bar;
+
+    @Autowired
     private Person person;
 
     @BeforeEach
     void setUp() throws Exception {
-//        person.setBroke(true);
+        person.setBroke(true);
     }
 
     @Test
     void testAfterThrowingAdvice() {
- 
-    	assertThrows(CustomerBrokenException.class, () -> bar.sellSquishee(person));
+
+        assertThrows(CustomerBrokenException.class, () -> bar.sellSquishee(person));
 
         assertTrue("Customer is not broken ", AopLog.getStringValue().contains("Hmmm..."));
         System.out.println(AopLog.getStringValue());
