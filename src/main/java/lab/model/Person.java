@@ -14,6 +14,7 @@ public interface Person {
     boolean isProgrammer();
     List<Contact> getContacts();
     boolean isBroke();
+    Person setBroke(boolean value);
 
     default String getName() {
         return String.format("%s %s", getFirstName(), getLastName());

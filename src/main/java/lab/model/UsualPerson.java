@@ -1,13 +1,17 @@
 package lab.model;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 //@Component("person")
-@Value
+@Setter
+@Getter
 @EqualsAndHashCode(exclude = "id")
+@AllArgsConstructor
 //@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UsualPerson implements Person {
     private int id;
