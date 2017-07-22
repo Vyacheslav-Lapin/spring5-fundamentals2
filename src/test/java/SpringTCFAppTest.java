@@ -1,3 +1,4 @@
+import lab.config.AppConfig;
 import lab.model.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration("classpath:application-context.xml")
+@ContextConfiguration(classes = {AppConfig.class})
 class SpringTCFAppTest {
 	
 	@Autowired

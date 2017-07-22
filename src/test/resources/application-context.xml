@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="person" class="lab.model.UsualPerson"
           p:country-ref="country"
           p:name="John Smith"
-          p:age="35"/>
+          p:age="35"
+          p:programmer="true"
+          p:height="1.78"
+          p:contacts-ref="contacts"
+    />
 
     <bean id="country" class="lab.model.SimpleCountry"
           p:id="1"
           p:name="Russia"
-          p:codeName="RU"/>
+          p:codeName="RU"
+    />
+
+    <util:list id="contacts" value-type="java.lang.String">
+        <value>asd@asd.ru</value>
+        <value>+7-234-456-67-89</value>
+    </util:list>
+
+    <context:annotation-config/>
 </beans>
