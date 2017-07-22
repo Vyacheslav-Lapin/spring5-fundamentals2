@@ -1,12 +1,14 @@
 package lab.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
 
 import java.io.Serializable;
 
-@Value
-@EqualsAndHashCode(exclude = "id")
+//@Value
+//@EqualsAndHashCode(exclude = "id")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SimpleCountry implements Country, Serializable {
 	private int id;
     private String name;

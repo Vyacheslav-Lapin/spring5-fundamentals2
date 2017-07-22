@@ -31,20 +31,16 @@ class HelloWorldTest {
 //		System.out.println(person);
 	}
 
-	static Person getExpectedPerson() {
-        val contacts = Arrays.asList("asd@asd.ru", "+7-234-456-67-89");
-        val country = new SimpleCountry(
-                1,
-                "Russia",
-                "RU");
-
-        return new UsualPerson(
-				1,
-				"John Smith",
-                country,
-				35,
-				1.78F,
-				true,
-                contacts);
-	}
+    static Person getExpectedPerson() {
+        return new UsualPerson()
+                .setAge(35)
+                .setHeight(1.78F)
+                .setProgrammer(true)
+                .setName("John Smith")
+                .setCountry(new SimpleCountry()
+                        .setId(1)
+                        .setName("Russia")
+                        .setCodeName("RU"))
+                .setContacts(Arrays.asList("asd@asd.ru", "+7-234-456-67-89"));
+    }
 }

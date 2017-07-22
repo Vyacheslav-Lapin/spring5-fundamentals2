@@ -9,15 +9,13 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean id="person" class="lab.model.UsualPerson"
-          c:id="1"
-          c:country-ref="country"
-          c:name-ref="name"
-          c:age="35"
-          c:contacts-ref="contacts"
-          c:isProgrammer="true"
-          c:height="1.78"/>
-
-    <bean id="name" class="java.lang.String" c:_0="John Smith" />
+          p:country-ref="country"
+          p:name="John Smith"
+          p:age="35"
+          p:contacts-ref="contacts"
+          p:programmer="true"
+          p:height="1.78"
+    />
 
     <util:list id="contacts" value-type="java.lang.String">
         <value>asd@asd.ru</value>
