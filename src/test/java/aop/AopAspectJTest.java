@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -18,15 +19,16 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
 @ContextConfiguration("classpath:aop.xml")
 class AopAspectJTest {
 
-	@Autowired
+    @Autowired
     private Bar bar;
-    
-	@Autowired
-    private Person person;
+
+    @Autowired
+    @Qualifier("notBroken")
+    private Person notBrokenPerson;
 
     @BeforeEach
     void setUp() throws Exception {
-        bar.sellSquishee(person);
+        bar.sellSquishee(notBrokenPerson);
     }
 
     @Test
