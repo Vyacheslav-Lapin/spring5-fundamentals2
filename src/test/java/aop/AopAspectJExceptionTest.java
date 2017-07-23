@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -22,17 +23,13 @@ class AopAspectJExceptionTest {
 	private Bar bar;
     
 	@Autowired
-    private Person person;
-
-    @BeforeEach
-    void setUp() throws Exception {
-//        person.setBroke(true);
-    }
+    @Qualifier("broken")
+    private Person brokenPerson;
 
     @Test
     void testAfterThrowingAdvice() {
  
-    	assertThrows(CustomerBrokenException.class, () -> bar.sellSquishee(person));
+    	assertThrows(CustomerBrokenException.class, () -> bar.sellSquishee(brokenPerson));
 
         assertTrue("Customer is not broken ", AopLog.getStringValue().contains("Hmmm..."));
         System.out.println(AopLog.getStringValue());
