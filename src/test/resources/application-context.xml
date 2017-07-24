@@ -7,4 +7,8 @@
     <context:annotation-config/>
     <context:component-scan base-package="lab"/>
     
+<<<<<<< 5904e788b920af2aff17608ab8d96db2693f93ce
 </beans>
+=======
+</beans>
+>>>>>>> lab5 start
