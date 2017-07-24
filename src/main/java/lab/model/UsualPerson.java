@@ -1,16 +1,18 @@
 package lab.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-//@Component("person")
+@Component("person")
 @Value
 @EqualsAndHashCode(exclude = "id")
-//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UsualPerson implements Person {
-    private int id;
+    @Getter
+    private long id;
     private String firstName;
     private String lastName;
     private Country country;

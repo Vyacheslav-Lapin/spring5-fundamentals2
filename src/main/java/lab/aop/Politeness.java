@@ -3,9 +3,7 @@ package lab.aop;
 import lab.model.Person;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 
 @Aspect
 public class Politeness {
@@ -21,14 +19,17 @@ public class Politeness {
         AopLog.append("Is " + ((Squishee) retVal).getName() + " Good Enough? \n");
     }
 
+    @AfterThrowing("execution(* sellSquishee(..))")
     public void sayYouAreNotAllowed() {
         AopLog.append("Hmmm... \n");
     }
 
-    public void sayGoodBye() {
+    @After("execution(* sellSquishee(..))")
+    private void sayGoodBye() {
         AopLog.append("Good Bye! \n");
     }
 
+    @Around("execution(* sellSquishee(..))")
     public Object sayPoliteWordsAndSell(ProceedingJoinPoint pjp) throws Throwable {
         AopLog.append("Hi! \n");
         Object retVal = pjp.proceed();

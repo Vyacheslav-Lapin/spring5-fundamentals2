@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SimpleAppTest {
-	
+
 	private static final String APPLICATION_CONTEXT_XML_FILE_NAME = "ioc.xml";
 
 	private BeanFactory context = new ClassPathXmlApplicationContext(
