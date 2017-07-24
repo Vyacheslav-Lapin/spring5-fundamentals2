@@ -15,8 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class Politeness {
 
-    @Pointcut("execution(* sellSquishee(..))")
-    void sellSquishee() {
+
+    @Before("execution(* sellSquishee(..))")
+    public void sayHello(JoinPoint joinPoint) {
+        AopLog.append(String.format("Hello %s. How are you doing?%n", ((Person) joinPoint.getArgs()[0]).getName()));
     }
 
     @Before("sellSquishee()")
@@ -35,7 +37,7 @@ public class Politeness {
         System.out.println("Hmmm...");
     }
 
-    @After("sellSquishee()")
+    @After("execution(* sellSquishee(..))")
     public void sayGoodBye() {
         System.out.println("Good Bye!");
     }
