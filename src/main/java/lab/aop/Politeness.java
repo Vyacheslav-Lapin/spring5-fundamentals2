@@ -42,7 +42,8 @@ public class Politeness {
         System.out.println("Good Bye!");
     }
 
-    @Around("sellSquishee()")
+
+    @Around("execution(* sellSquishee(..))")
     public Object sayPoliteWordsAndSell(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println("Hi!");
         val retVal = pjp.proceed();
