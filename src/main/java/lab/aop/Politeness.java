@@ -3,16 +3,14 @@ package lab.aop;
 import lab.model.Person;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 
 @Aspect
 public class Politeness {
 
     @Before("execution(* sellSquishee(..))")
-    public void sayHello(JoinPoint joinPiont) {
-        AopLog.append("Hello " + ((Person) joinPiont.getArgs()[0]).getName() + ". How are you doing? \n");
+    public void sayHello(JoinPoint joinPoint) {
+        AopLog.append(String.format("Hello %s. How are you doing?%n", ((Person) joinPoint.getArgs()[0]).getName()));
     }
 
     @AfterReturning(pointcut = "execution(* sellSquishee(..))",
@@ -25,6 +23,7 @@ public class Politeness {
         AopLog.append("Hmmm... \n");
     }
 
+    @After("execution(* sellSquishee(..))")
     public void sayGoodBye() {
         AopLog.append("Good Bye! \n");
     }
