@@ -5,8 +5,8 @@
        xmlns:c="http://www.springframework.org/schema/c"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <import resource="application-context.xml"/>
 
@@ -23,7 +23,7 @@
         <bean class="lab.model.SimpleContact" p:type="TELEPHONE" p:value="+55 11 99999-5555"/>
     </util:list>
 
-    <bean id="person" class="lab.model.UsualPerson"
+    <bean id="broken" class="lab.model.UsualPerson"
           c:id-ref="id"
           c:firstName-ref="firstName"
           c:lastName-ref="lastName"
@@ -34,11 +34,17 @@
           c:country-ref="country"
           c:broke="true"/>
 
+    <bean id="person" class="lab.model.UsualPerson"
+          c:id-ref="id"
+          c:firstName-ref="firstName"
+          c:lastName-ref="lastName"
+          c:age-ref="age"
+          c:isProgrammer-ref="isProgrammer"
+          c:height-ref="height"
+          c:contacts-ref="contacts"
+          c:country-ref="country"
+          c:broke="false"/>
+
     <bean id="name" class="java.lang.String" c:_0="Russia"/>
     <bean id="codeName" class="java.lang.String" c:_0="RU"/>
-    <!--<bean id="country" class="lab.model.SimpleCountry"-->
-        <!--c:id-ref="id"-->
-        <!--c:name-ref="name"-->
-        <!--c:codeName-ref="codeName"/>-->
-
 </beans>
