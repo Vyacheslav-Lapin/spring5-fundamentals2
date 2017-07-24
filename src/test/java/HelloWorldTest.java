@@ -40,7 +40,8 @@ public class HelloWorldTest {
     private Person getExpectedPerson() {
         return new UsualPerson()
                 .setAge(35)
-                .setName("John Smith")
+                .setFirstName("John")
+                .setLastName("Smith")
                 .setCountry(new SimpleCountry()
                         .setId(1)
                         .setName("Russia")
@@ -53,8 +54,8 @@ public class HelloWorldTest {
         Person person = context.getBean("person", Person.class);
 
         assertThat(person.getAge(), is(both(
-                        greaterThan(18))
-                        .and(lessThan(65))
+                greaterThan(18))
+                .and(lessThan(65))
         ));
     }
 }

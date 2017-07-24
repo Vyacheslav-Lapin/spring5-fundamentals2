@@ -9,7 +9,8 @@
     <bean class="lab.model.RandomIntInjectionAnnotationBeanPostProcessor"/>
 
     <bean id="person" class="lab.model.UsualPerson">
-        <property name="name" value="John Smith"/>
+        <property name="firstName" value="John"/>
+        <property name="lastName" value="Smith"/>
         <property name="age" value="35"/>
         <property name="country" ref="simpleCountry"/>
     </bean>
