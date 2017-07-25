@@ -1,6 +1,6 @@
 package ioc;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 public class SimpleAppTest {
 
     protected static final String APPLICATION_CONTEXT_XML_FILE_NAME = "classpath:application-context.xml";
@@ -20,7 +21,7 @@ public class SimpleAppTest {
 
     private UsualPerson expectedPerson;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() throws Exception {
         context = new ClassPathXmlApplicationContext(
                 APPLICATION_CONTEXT_XML_FILE_NAME);
@@ -31,7 +32,6 @@ public class SimpleAppTest {
     void testInitPerson() {
         UsualPerson person = (UsualPerson) context.getBean("person");
         assertEquals(expectedPerson, person);
-        System.out.println(person);
     }
 
     private UsualPerson getExpectedPerson() {
