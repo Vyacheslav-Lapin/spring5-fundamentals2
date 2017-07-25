@@ -1,21 +1,7 @@
 package lab.model;
 
-import java.util.List;
-
 public interface Person {
-    void sayHello(Person person);
-
-    int getId();
-    String getFirstName();
-    String getLastName();
-    Country getCountry();
-    int getAge();
-    float getHeight();
-    boolean isProgrammer();
-    List<Contact> getContacts();
-    boolean isBroke();
-
-    default String getName() {
-        return String.format("%s %s", getFirstName(), getLastName());
-    }
+    public void setName(String name);
+    public String getName();
+    public void sayHello(Person person);
 }
