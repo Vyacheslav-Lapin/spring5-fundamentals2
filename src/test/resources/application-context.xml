@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="person" class="lab.model.UsualPerson">
-        <property name="name" value="John Smith"/>
-        <property name="age" value="35"/>
-        <property name="height" value="1.78"/>
-        <property name="programmer" value="true"/>
-        <property name="country" ref="country"/>
-        <property name="contacts" ref="contacts"/>
-    </bean>
+    <bean id="id" class="java.lang.Integer" c:value="1"/>
+    <bean id="name" class="java.lang.String" c:value="John Smith"/>
+    <bean id="age" class="java.lang.Integer" c:value="35"/>
+    <bean id="height" class="java.lang.Float" c:value="1.78"/>
+    <bean id="isProgrammer" class="java.lang.Boolean" c:value="true"/>
+
+    <bean id="person" class="lab.model.UsualPerson"
+          c:id-ref="id"
+          c:name-ref="name"
+          c:age-ref="age"
+          c:height-ref="height"
+          c:isProgrammer-ref="isProgrammer"
+          c:contacts-ref="contacts"
+          c:country-ref="country"/>
+
+    <bean id="countryName" class="java.lang.String" c:value="Russia"/>
+    <bean id="countryCodeName" class="java.lang.String" c:value="RU"/>
 
     <bean id="country" class="lab.model.SimpleCountry">
-        <property name="id" value="1"/>
-        <property name="name" value="Russia"/>
-        <property name="codeName" value="RU"/>
+    <property name="id" value="1"/>
+    <property name="name" value="Russia"/>
+    <property name="codeName" value="RU"/>
     </bean>
 
     <util:list id="contacts" value-type="java.lang.String">
