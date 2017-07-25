@@ -11,7 +11,7 @@
         <property name="country" ref="country"/>
     </bean>
 
-    <bean id="country" class="lab.model.Country">
+    <bean id="country" class="lab.model.SimpleCountry">
         <property name="id" value="1"/>
         <property name="name" value="Russia"/>
         <property name="codeName" value="RU"/>
