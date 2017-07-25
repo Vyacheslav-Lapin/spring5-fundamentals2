@@ -32,7 +32,7 @@
           c:height-ref="height"
           c:contacts-ref="contacts"
           c:country-ref="country"
-          c:broke="true"/>
+          c:broke="false"/>
 
     <bean id="name" class="java.lang.String" c:_0="Russia"/>
     <bean id="codeName" class="java.lang.String" c:_0="RU"/>
