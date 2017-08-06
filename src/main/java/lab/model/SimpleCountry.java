@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SimpleCountry implements Country {
-
     private int id;
     private String name;
     private String codeName;
-
-
 }
