@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <import resource="application-context.xml"/>
+
+    <bean id="id" class="java.lang.Integer" c:value="1"/>
+
+    <bean id="firstName" class="java.lang.String" c:_0="John"/>
+    <bean id="lastName" class="java.lang.String" c:_0="Smith"/>
+    <bean id="age" class="java.lang.Integer" c:value="35"/>
+    <bean id="isProgrammer" class="java.lang.Boolean" c:value="true"/>
+    <bean id="height" class="java.lang.Float" c:value="1.78"/>
+
+    <util:list id="contacts" value-type="lab.model.SimpleContact">
+        <bean class="lab.model.SimpleContact" p:type="EMAIL" p:value="asd@asd.ru"/>
+        <bean class="lab.model.SimpleContact" p:type="TELEPHONE" p:value="+55 11 99999-5555"/>
+    </util:list>
+
+    <bean id="person" class="lab.model.UsualPerson"
+          c:id-ref="id"
+          c:firstName-ref="firstName"
+          c:lastName-ref="lastName"
+          c:age-ref="age"
+          c:isProgrammer-ref="isProgrammer"
+          c:height-ref="height"
+          c:contacts-ref="contacts"
+          c:country-ref="country"
+          c:broke="false"/>
+
+    <bean id="name" class="java.lang.String" c:_0="Russia"/>
+    <bean id="codeName" class="java.lang.String" c:_0="RU"/>
+    <!--<bean id="country" class="lab.model.SimpleCountry"-->
+    <!--c:id-ref="id"-->
+    <!--c:name-ref="name"-->
+    <!--c:codeName-ref="codeName"/>-->
+
+</beans>

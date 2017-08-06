@@ -2,7 +2,6 @@ group 'ru.training.javalab'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'war'
 
 sourceCompatibility = 1.8
 
@@ -12,21 +11,36 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    compile 'org.springframework:spring-context:+'
-    compile 'org.apache.logging.log4j:log4j-core:+'
-
-    compileOnly 'org.projectlombok:lombok:+'
-
-    testCompile 'org.junit.jupiter:junit-jupiter-params:5.0.0-M4',
-            'org.hamcrest:java-hamcrest:+'
-}
-
 configurations {
     testCompile.extendsFrom compileOnly
 }
 
+// this turns logging on in tests:
 test.testLogging.showStandardStreams = true
+
+dependencies {
+    compile 'org.springframework:spring-context:+',
+
+            // AOP
+            'org.aspectj:aspectjrt:+',
+            'org.aspectj:aspectjweaver:+',
+            'aopalliance:aopalliance:+',
+
+            // Common
+            'org.apache.logging.log4j:log4j-core:+'//,
+//            'io.vavr:vavr:+',
+//            'org.codehaus.groovy:groovy-all:+',
+//            'com.aol.simplereact:cyclops-react:+'
+
+    compileOnly 'org.projectlombok:lombok:+',
+//            'org.apache.tomcat:tomcat-api:+',
+//            'org.apache.tomcat:tomcat-jsp-api:+',
+            'edu.washington.cs.types.checker:checker-framework:+'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M4',
+            'org.hamcrest:java-hamcrest:+',
+            'org.springframework:spring-test:+'
+}
 
 task Wrapper(type: Wrapper) {
     gradleVersion = '4.0.1'
