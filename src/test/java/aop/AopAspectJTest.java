@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,15 +31,15 @@ class AopAspectJTest {
 
     @Test
     void testBeforeAdvice() {
-        assertTrue(AopLog.getStringValue().contains("Hello"), "Before advice is not good enought...");
-        assertTrue(AopLog.getStringValue().contains("How are you doing?"), "Before advice is not good enought...");
+        assertTrue(AopLog.getStringValue().contains("Hello"), "Before advice is not good enough...");
+        assertTrue(AopLog.getStringValue().contains("How are you doing?"), "Before advice is not good enough...");
         System.out.println(AopLog.getStringValue());
     }
 
     @Test
     void testAfterAdvice() {
         System.out.println(AopLog.getStringValue());
-        assertTrue(AopLog.getStringValue().contains("Good Bye!"), "After advice is not good enought...");
+        assertTrue(AopLog.getStringValue().contains("Good Bye!"), "After advice is not good enough...");
     }
 
     @Test
@@ -48,8 +50,8 @@ class AopAspectJTest {
 
     @Test
     void testAroundAdvice() {
-        assertTrue(AopLog.getStringValue().contains("Hi!"), "Around advice is not good enought...");
-        assertTrue(AopLog.getStringValue().contains("See you!"), "Around advice is not good enought...");
+        assertTrue(AopLog.getStringValue().contains("Hi!"), "Around advice is not good enough...");
+        assertTrue(AopLog.getStringValue().contains("See you!"), "Around advice is not good enough...");
         System.out.println(AopLog.getStringValue());
     }
 

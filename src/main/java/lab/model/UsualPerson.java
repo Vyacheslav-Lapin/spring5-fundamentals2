@@ -1,9 +1,6 @@
 package lab.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +9,7 @@ import java.util.List;
 @Getter
 @EqualsAndHashCode(exclude = "id")
 @AllArgsConstructor
+@NoArgsConstructor
 //@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UsualPerson implements Person {
     private int id;
