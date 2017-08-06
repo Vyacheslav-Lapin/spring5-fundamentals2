@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+<bean id="id" class="java.lang.Integer" c:value="1"/>
+<bean id="name" class="java.lang.String" c:value="John Doe"/>
+<bean id="age" class="java.lang.Integer" c:value="20"/>
+<bean id="height" class="java.lang.Float" c:value="1.78"/>
+<bean id="isProgrammer" class="java.lang.Boolean" c:value="false"/>
+
+<bean id="person" class="lab.model.UsualPerson"
+      c:id-ref="id"
+      c:name-ref="name"
+      c:age-ref="age"
+      c:height-ref="height"
+      c:isProgrammer-ref="isProgrammer"
+      c:contacts-ref="contacts"
+      c:country-ref="country"/>
+
+<bean id="countryName" class="java.lang.String" c:value="Russia"/>
+<bean id="countryCodeName" class="java.lang.String" c:value="RU"/>
+
+<bean id="country" class="lab.model.SimpleCountry">
+    <property name="id" value="1"/>
+    <property name="name" value="Netherlands"/>
+    <property name="codeName" value="NE"/>
+</bean>
+
+<util:list id="contacts" value-type="java.lang.String">
+    <value>some@email.com</value>
+    <value>+7-111-111-11-11</value>
+</util:list>
+</beans>
