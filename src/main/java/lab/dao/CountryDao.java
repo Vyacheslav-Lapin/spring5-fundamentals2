@@ -6,7 +6,8 @@ import org.springframework.beans.factory.InitializingBean;
 import java.util.List;
 
 public interface CountryDao extends InitializingBean {
-    String[][] COUNTRY_INIT_DATA = {{"Australia", "AU"},
+    String[][] COUNTRY_INIT_DATA = {
+            {"Australia", "AU"},
             {"Canada", "CA"},
             {"France", "FR"},
             {"Hong Kong", "HK"},
@@ -17,7 +18,8 @@ public interface CountryDao extends InitializingBean {
             {"Sweden", "SE"},
             {"Switzerland", "CH"},
             {"United Kingdom", "GB"},
-            {"United States", "US"}};
+            {"United States", "US"}
+    };
 
     List<Country> getCountryList();
 
