@@ -22,19 +22,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ContextConfiguration("classpath:jdbc.xml")
 class JdbcTest {
 
-	@Autowired
-	private CountryDao countryDao;
-	
+    @Autowired
+    private CountryDao countryDao;
+
     private List<Country> expectedCountryList = new ArrayList<Country>();
     private List<Country> expectedCountryListStartsWithA = new ArrayList<Country>();
-    private Country countryWithChangedName = new SimpleCountry(1, "Russia", "RU");
+    private Country countryWithChangedName = new SimpleCountry(8, "Russia", "RU");
 
     @BeforeEach
     void setUp() throws Exception {
         initExpectedCountryLists();
-        countryDao.loadCountries();
     }
-    
+
     @Test
     @DirtiesContext
     void testCountryList() {
@@ -65,13 +64,14 @@ class JdbcTest {
     }
 
     private void initExpectedCountryLists() {
-         for (int i = 0; i < SimpleCountryJdbcDao.COUNTRY_INIT_DATA.length; i++) {
-             String[] countryInitData = SimpleCountryJdbcDao.COUNTRY_INIT_DATA[i];
-             Country country = new SimpleCountry(i, countryInitData[0], countryInitData[1]);
-             expectedCountryList.add(country);
-             if (country.getName().startsWith("A")) {
-                 expectedCountryListStartsWithA.add(country);
-             }
-         }
-     }
+        for (int i = 0; i < SimpleCountryJdbcDao.COUNTRY_INIT_DATA.length; i++) {
+            String[] countryInitData = SimpleCountryJdbcDao.COUNTRY_INIT_DATA[i];
+            int countryId = i + 1;
+            Country country = new SimpleCountry(countryId, countryInitData[0], countryInitData[1]);
+            expectedCountryList.add(country);
+            if (country.getName().startsWith("A")) {
+                expectedCountryListStartsWithA.add(country);
+            }
+        }
+    }
 }
