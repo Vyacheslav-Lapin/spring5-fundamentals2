@@ -59,8 +59,9 @@ public class SimpleCountryJdbcDao extends JdbcDaoSupport implements lab.dao.Coun
     @Override
     public Country getCountryByCodeName(final String codeName) {
         return Optional.ofNullable(getJdbcTemplate())
-                       .map(template -> template.query(String.format(GET_COUNTRY_BY_CODE_NAME_SQL, codeName), COUNTRY_ROW_MAPPER).get(0))
-                       .orElseThrow(RuntimeException::new);
+                       .map(template -> template.query(String.format(GET_COUNTRY_BY_CODE_NAME_SQL, codeName), COUNTRY_ROW_MAPPER))
+                       .map(countries -> countries.get(0))
+                       .orElse(null);
     }
 
     @Override
