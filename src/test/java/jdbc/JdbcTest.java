@@ -32,7 +32,6 @@ class JdbcTest {
     @BeforeEach
     void setUp() throws Exception {
         initExpectedCountryLists();
-        countryDao.loadCountries();
     }
     
     @Test
