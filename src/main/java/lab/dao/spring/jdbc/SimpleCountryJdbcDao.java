@@ -26,8 +26,7 @@ public class SimpleCountryJdbcDao extends JdbcDaoSupport implements lab.dao.Coun
 
 	@Override
     public List<Country> getCountryList() {
-		// TODO: implement it
-		return null;
+		return getJdbcTemplate().query(GET_ALL_COUNTRIES_SQL, COUNTRY_ROW_MAPPER);
 	}
 
 	@Override
@@ -42,7 +41,8 @@ public class SimpleCountryJdbcDao extends JdbcDaoSupport implements lab.dao.Coun
 
 	@Override
     public void updateCountryName(String codeName, String newCountryName) {
-		// TODO: implement it
+		String sql = String.format("%s%s'%s%s'", UPDATE_COUNTRY_NAME_SQL_1, newCountryName, UPDATE_COUNTRY_NAME_SQL_2, codeName);
+		getJdbcTemplate().execute(sql);
 	}
 
 	@Override
