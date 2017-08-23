@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="application-context.xml"/>
+
+    <!--for Person-->
+    <bean id="firstName" class="java.lang.String" c:_0="John"/>
+    <bean id="lastName" class="java.lang.String" c:_0="Smith"/>
+    <bean id="age" class="java.lang.Integer" c:value="35"/>
+    <bean id="isProgrammer" class="java.lang.Boolean" c:value="true"/>
+    <bean id="height" class="java.lang.Float" c:value="1.78"/>
+    <bean id="broke" class="java.lang.Boolean" c:value="false"/>
+
+    <!--for Person.contacts-->
+    <bean class="lab.model.simple.SimpleContact" c:type="EMAIL" c:value="asd@asd.ru"/>
+    <bean class="lab.model.simple.SimpleContact" c:type="TELEPHONE" c:value="+55 11 99999-5555"/>
+
+    <!--for country-->
+    <bean id="name" class="java.lang.String" c:_0="Russia"/>
+    <bean id="codeName" class="java.lang.String" c:_0="RU"/>
+
+</beans>
