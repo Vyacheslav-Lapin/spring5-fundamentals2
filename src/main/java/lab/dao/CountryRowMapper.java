@@ -14,9 +14,7 @@ public class CountryRowMapper implements RowMapper<Country> {
 
 	public Country mapRow(ResultSet resultSet, int i) throws SQLException {
 		Country country = new SimpleCountry(resultSet.getInt(ID), resultSet.getString(NAME),
-				// TODO: implement it
-				null
-				);
+				resultSet.getString(CODE_NAME));
 		
 		return country;
 	}

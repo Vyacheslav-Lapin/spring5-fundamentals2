@@ -26,8 +26,7 @@ public class SimpleCountryJdbcDao extends JdbcDaoSupport implements lab.dao.Coun
 
 	@Override
     public List<Country> getCountryList() {
-		// TODO: implement it
-		return null;
+		return getJdbcTemplate().query(GET_ALL_COUNTRIES_SQL, COUNTRY_ROW_MAPPER);
 	}
 
 	@Override
