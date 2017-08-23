@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Component("country")
 @Value
 public class SimpleCountry implements Country, Serializable {
-    private int id;
-    private String name;
-    private String codeName;
+    int id;
+    String name;
+    String codeName;
 }

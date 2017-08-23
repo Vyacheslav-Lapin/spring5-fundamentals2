@@ -3,6 +3,7 @@ package practice;
 import io.vavr.CheckedConsumer;
 import io.vavr.CheckedFunction1;
 import lombok.SneakyThrows;
+import lombok.val;
 
 import java.sql.*;
 import java.util.Properties;
@@ -15,14 +16,15 @@ public interface ConnectionPool extends Supplier<Connection>, AutoCloseable {
 
     @SneakyThrows
     static ConnectionPool byProperties(String propertiesFilePath) {
-        Properties properties = new Properties();
+        val properties = new Properties();
         properties.load(Properties.class.getResourceAsStream(propertiesFilePath));
 
         Class.forName((String) properties.remove(DB_DRIVER));
-        String url = (String) properties.remove(DB_URL);
-        int poolSize = Integer.parseInt((String) properties.remove(DB_POLL_SIZE));
+        val url = (String) properties.remove(DB_URL);
+        val poolSize = Integer.parseInt((String) properties.remove(DB_POLL_SIZE));
 
-        return new ArrayBlockingQueueConnectionPool(poolSize, () -> getConnection(url, properties));
+        return new ArrayBlockingQueueConnectionPool(poolSize,
+                () -> getConnection(url, properties));
     }
 
     @Private
@@ -36,14 +38,14 @@ public interface ConnectionPool extends Supplier<Connection>, AutoCloseable {
 
     @SneakyThrows
     default <T> T mapConnection(CheckedFunction1<Connection, T> connectionMapper) {
-        try (Connection connection = get()) {
+        try (val connection = get()) {
             return connectionMapper.apply(connection);
         }
     }
 
     @SneakyThrows
     default void withConnection(CheckedConsumer<Connection> connectionConsumer) {
-        try (Connection connection = get()) {
+        try (val connection = get()) {
             connectionConsumer.accept(connection);
         }
     }

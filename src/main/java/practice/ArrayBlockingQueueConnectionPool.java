@@ -18,7 +18,7 @@ public class ArrayBlockingQueueConnectionPool implements ConnectionPool {
         Consumer<Connection> offer = connectionQueue::offer;
         for (int i = 0; i < poolSize; i++)
             connectionQueue.add(
-                    PooledConnection.from(connectionSupplier.get(), offer));
+                    new PooledConnection(connectionSupplier.get(), offer));
     }
 
     @Override

@@ -2,6 +2,7 @@ package lab.dao;
 
 import lab.model.Person;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface PersonDao {
@@ -15,7 +16,7 @@ public interface PersonDao {
 			   boolean programmer,
 			   boolean broke);
 
-	Person select(int id);
+	Optional<Person> select(int id);
 	
 	Stream<Person> selectAll();
 	
