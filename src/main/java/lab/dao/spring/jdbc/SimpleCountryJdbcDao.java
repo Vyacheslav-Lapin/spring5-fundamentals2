@@ -62,7 +62,6 @@ public class SimpleCountryJdbcDao extends NamedParameterJdbcDaoSupport implement
     public void loadCountries() {
         for (String[] countryData : COUNTRY_INIT_DATA) {
             String sql = String.format(LOAD_COUNTRIES_SQL, countryData[0], countryData[1]);
-//			System.out.println(sql);
             getJdbcTemplate().execute(sql);
         }
     }
@@ -72,7 +71,6 @@ public class SimpleCountryJdbcDao extends NamedParameterJdbcDaoSupport implement
         JdbcTemplate jdbcTemplate = getJdbcTemplate();
 
         String sql = String.format(GET_COUNTRY_BY_CODE_NAME_SQL, codeName);
-//		System.out.println(sql);
 
         return jdbcTemplate.query(sql, COUNTRY_ROW_MAPPER).get(0);
     }

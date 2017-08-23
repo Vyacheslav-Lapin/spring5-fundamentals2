@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework:spring-jdbc:5.0.0.RC3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/5.0.0.RC3/929aff2bcb7963398edd794c98c79a457fcce0a6/spring-jdbc-5.0.0.RC3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/5.0.0.RC3/f9bd043662afd38a741deda82251fd550ea91136/spring-jdbc-5.0.0.RC3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

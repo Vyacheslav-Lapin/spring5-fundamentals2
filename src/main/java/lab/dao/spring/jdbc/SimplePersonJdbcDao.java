@@ -1,4 +1,4 @@
-package lab.dao.jdbc;
+package lab.dao.spring.jdbc;
 
 import lab.dao.PersonDao;
 import lab.model.Person;
