@@ -8,6 +8,6 @@ import javax.persistence.PersistenceUnit;
 public class AbstractJpaDao {
 
 	@Setter(onMethod = @__(@PersistenceUnit))
-	protected EntityManagerFactory emf;
+	protected EntityManagerFactory lcemf;
 
 }

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,7 +33,7 @@ class CountryDaoImplTest {
     @Test
     void testSaveCountry2() {
         countryDao.save(exampleCountry);
-        assertThat(exampleCountry,
+        assertThat(Optional.of(exampleCountry),
                 is(countryDao.getAllCountries().findFirst()));
         countryDao.remove(exampleCountry);
     }
@@ -52,5 +54,4 @@ class CountryDaoImplTest {
                         .orElseThrow(RuntimeException::new));
         countryDao.remove(exampleCountry);
     }
-
 }
