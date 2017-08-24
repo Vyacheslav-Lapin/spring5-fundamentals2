@@ -22,8 +22,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Component
-@Qualifier("jdbcCountryDao")
 public class SimpleJdbcCountryDao extends NamedParameterJdbcDaoSupport implements JdbcCountryDao {
 
     private static final String LOAD_COUNTRIES_SQL = "INSERT INTO country (name, code_name) VALUES ('%s', '%s');";

@@ -14,12 +14,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:jdbc.xml")
@@ -27,7 +29,7 @@ class JdbcTest {
 
 	@Autowired
 	private JdbcCountryDao jdbcCountryDao;
-	
+
     private List<Country> expectedCountryList = new ArrayList<>();
     private List<Country> expectedCountryListStartsWithA = new ArrayList<>();
     private Country countryWithChangedName = new SimpleCountry(8, "Russia", "RU");
@@ -37,7 +39,7 @@ class JdbcTest {
         initExpectedCountryLists();
         jdbcCountryDao.loadCountries();
     }
-    
+
     @Test
     void testCountryList() {
         List<Country> countryList = jdbcCountryDao.getAllCountries()
@@ -53,7 +55,12 @@ class JdbcTest {
     @DirtiesContext
     void testCountryChange() {
         jdbcCountryDao.updateCountryName("RU", "Russia");
-        assertEquals(countryWithChangedName, jdbcCountryDao.getCountryByCodeName("RU"));
+        Optional<Country> country = jdbcCountryDao.getCountryByCodeName("RU");
+        if (country.isPresent()) {
+            assertEquals(countryWithChangedName, country.get());
+        } else {
+            fail("country is null");
+        }
     }
 
     @Test
@@ -66,13 +73,13 @@ class JdbcTest {
     }
 
     private void initExpectedCountryLists() {
-         for (int i = 0; i < SimpleJdbcCountryDao.COUNTRY_INIT_DATA.length;) {
-             String[] countryInitData = SimpleJdbcCountryDao.COUNTRY_INIT_DATA[i];
-             Country country = new SimpleCountry(++i, countryInitData[0], countryInitData[1]);
-             expectedCountryList.add(country);
-             if (country.getName().startsWith("A")) {
-                 expectedCountryListStartsWithA.add(country);
-             }
-         }
-     }
+        for (int i = 0; i < SimpleJdbcCountryDao.COUNTRY_INIT_DATA.length; ) {
+            String[] countryInitData = SimpleJdbcCountryDao.COUNTRY_INIT_DATA[i];
+            Country country = new SimpleCountry(++i, countryInitData[0], countryInitData[1]);
+            expectedCountryList.add(country);
+            if (country.getName().startsWith("A")) {
+                expectedCountryListStartsWithA.add(country);
+            }
+        }
+    }
 }
