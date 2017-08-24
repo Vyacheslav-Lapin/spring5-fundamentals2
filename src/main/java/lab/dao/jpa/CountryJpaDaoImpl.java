@@ -5,7 +5,6 @@ import lab.model.Country;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -14,30 +13,28 @@ public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
 
     @Override
     public void save(@NotNull Country country) {
-//		TODO: Implement it
-        EntityManager em = null;
-
-        if (em != null) {
-            em.close();
-        }
+        runWithEntityManager((em) -> em.persist(country));
     }
 
     @Override
     public Stream<Country> getAllCountries() {
-//	TODO: Implement it
-        return null;
+        return doWithEntityManager((em) -> em
+                .createQuery("from " + Country.class.getName(), Country.class)
+                .getResultList()
+                .stream());
     }
 
     @Override
     public Optional<Country> getCountryByName(@NotNull String name) {
-//		TODO: Implement it
-
-        return null;
+        final String ql = "SELECT c FROM " + Country.class.getName() + " c WHERE c.name LIKE :name";
+        return doWithEntityManager((em) -> Optional.ofNullable(em
+                .createQuery(ql, Country.class).setParameter("name", name)
+                .getSingleResult()));
     }
 
     @Override
     public void remove(Country exampleCountry) {
-        // TODO: 23/08/2017 realize it!
+        runWithEntityManager((em) -> em.remove(em.merge(exampleCountry)));
     }
 
 }

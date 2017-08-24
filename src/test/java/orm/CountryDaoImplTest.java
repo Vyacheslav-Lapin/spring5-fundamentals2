@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Illustrates basic use of Hibernate as a JPA provider.
@@ -22,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CountryDaoImplTest {
 
     private Country exampleCountry =
-            new SimpleCountry(1, "Australia", "AU");
+            new SimpleCountry(0, "Australia", "AU");
 
     @Autowired
     @Qualifier("countryJpaDaoImpl")
@@ -31,14 +34,18 @@ class CountryDaoImplTest {
     @Test
     void testSaveCountry2() {
         countryDao.save(exampleCountry);
-        assertThat(exampleCountry,
-                is(countryDao.getAllCountries().findFirst()));
+        Optional<Country> country = countryDao.getAllCountries().findFirst();
+        if (country.isPresent()) {
+            assertThat(country.get(), is(exampleCountry));
+        } else {
+            fail("Country is null");
+        }
         countryDao.remove(exampleCountry);
     }
 
     @Test
     void testGetAllCountries() {
-        SimpleCountry country = new SimpleCountry(1, "Canada", "CA");
+        SimpleCountry country = new SimpleCountry(0, "Canada", "CA");
         countryDao.save(country);
         assertEquals(1, countryDao.getAllCountries().count());
         countryDao.remove(country);
@@ -47,10 +54,17 @@ class CountryDaoImplTest {
     @Test
     void testGetCountryByName() {
         countryDao.save(exampleCountry);
-        assertEquals(exampleCountry,
+        assertEquals(exampleCountry.getName(),
                 countryDao.getCountryByName("Australia")
-                        .orElseThrow(RuntimeException::new));
+                        .orElseThrow(RuntimeException::new).getName());
         countryDao.remove(exampleCountry);
+    }
+
+    @Test
+    void removeCountry() {
+        countryDao.save(exampleCountry);
+        countryDao.remove(exampleCountry);
+        assertEquals(0, countryDao.getAllCountries().count());
     }
 
 }
