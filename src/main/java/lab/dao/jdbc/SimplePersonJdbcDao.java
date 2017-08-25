@@ -1,18 +1,25 @@
-package lab.dao.spring.jdbc;
+package lab.dao.jdbc;
 
 import lab.dao.PersonDao;
 import lab.model.Person;
 import lombok.extern.log4j.Log4j2;
+import lombok.val;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.util.Optional;
 import java.util.stream.Stream;
 
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 @Log4j2
-public class SimplePersonJdbcDao extends JdbcDaoSupport implements PersonDao {
+public class SimplePersonJdbcDao extends JdbcDaoSupport implements PersonDao, InitializingBean {
+
+    private static final String INSERT_SQL = "INSERT INTO person " +
+            "(first_name, last_name, country_id, age, height, programmer, broke) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     @Override
     public void insert(Person person) {
@@ -49,11 +56,7 @@ public class SimplePersonJdbcDao extends JdbcDaoSupport implements PersonDao {
         getJdbcTemplate().update(
                 connection -> {
 
-                    PreparedStatement ps = connection.prepareStatement(
-                            "INSERT INTO person " +
-                                    "(first_name, last_name, country_id, age, height, programmer, broke) " +
-                                    "VALUES (?, ?, ?, ?, ?, ?, ?)",
-                            Statement.RETURN_GENERATED_KEYS);
+                    val ps = connection.prepareStatement(INSERT_SQL, RETURN_GENERATED_KEYS);
 
                     ps.setString(1, firstName);
                     ps.setString(2, lastName);
@@ -72,7 +75,7 @@ public class SimplePersonJdbcDao extends JdbcDaoSupport implements PersonDao {
     }
 
     @Override
-    public Person select(int id) {
+    public Optional<Person> select(int id) {
 
         Person user = null;
 
@@ -97,7 +100,7 @@ public class SimplePersonJdbcDao extends JdbcDaoSupport implements PersonDao {
 //        }
         log.debug("Receidved person: {}", user);
 
-        return user;
+        return Optional.ofNullable(user);
     }
 
     @Override

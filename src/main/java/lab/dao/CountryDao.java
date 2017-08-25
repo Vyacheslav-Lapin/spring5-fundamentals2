@@ -1,33 +1,28 @@
 package lab.dao;
 
 import lab.model.Country;
-import org.springframework.beans.factory.InitializingBean;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
-public interface CountryDao extends InitializingBean {
-    String[][] COUNTRY_INIT_DATA = {{"Australia", "AU"},
-            {"Canada", "CA"},
-            {"France", "FR"},
-            {"Hong Kong", "HK"},
-            {"Iceland", "IC"},
-            {"Japan", "JP"},
-            {"Nepal", "NP"},
-            {"Russian Federation", "RU"},
-            {"Sweden", "SE"},
-            {"Switzerland", "CH"},
-            {"United Kingdom", "GB"},
-            {"United States", "US"}};
+public interface CountryDao {
 
-    List<Country> getCountryList();
+	void save(@NotNull Country country);
 
-    List<Country> getCountryListStartWith(String name);
+	Stream<Country> getAllCountries();
 
-    void updateCountryName(String codeName, String newCountryName);
+	default Optional<Country> getCountryByName(@NotNull String name) {
+		return getAllCountries()
+				.filter(country -> country.getName().equals(name))
+				.findAny();
+	}
 
-    void loadCountries();
+	default Optional<Country> getCountryByCodeName(@NotNull String codeName) {
+		return getAllCountries()
+				.filter(country -> country.getCodeName().equals(codeName))
+				.findAny();
+	}
 
-    Country getCountryByCodeName(String codeName);
-
-    Country getCountryByName(String name);
+	void remove(Country exampleCountry);
 }
