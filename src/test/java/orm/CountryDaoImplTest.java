@@ -44,6 +44,7 @@ class CountryDaoImplTest {
     @Test
     @DirtiesContext
     void testRemoveCountry() {
+        countryDao.save(exampleCountry);
         countryDao.remove(exampleCountry);
         assertEquals(Optional.empty(), countryDao.getCountryByCodeName("AU"));
     }
