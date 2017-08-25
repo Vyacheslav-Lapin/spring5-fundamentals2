@@ -65,7 +65,7 @@ public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
                 .ifPresent(em -> {
                     EntityTransaction transaction = em.getTransaction();
                     transaction.begin();
-                    em.remove(exampleCountry);
+                    em.detach(exampleCountry);
                     transaction.commit();
                     em.close();
                 });
