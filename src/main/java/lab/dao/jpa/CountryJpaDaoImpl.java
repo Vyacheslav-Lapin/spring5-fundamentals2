@@ -61,10 +61,14 @@ public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
 
     @Override
     public void remove(Country exampleCountry) {
-        Optional<EntityManager> entityManager = Optional.ofNullable(emf.createEntityManager());
-
-        entityManager.ifPresent(em -> em.detach(exampleCountry));
-        entityManager.ifPresent(EntityManager::close);
+        Optional.ofNullable(emf.createEntityManager())
+                .ifPresent(em -> {
+                    EntityTransaction transaction = em.getTransaction();
+                    transaction.begin();
+                    em.remove(exampleCountry);
+                    transaction.commit();
+                    em.close();
+                });
     }
 
 }
