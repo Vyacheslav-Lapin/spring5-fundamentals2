@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -29,14 +30,16 @@ class CountryDaoImplTest {
     private CountryDao countryDao;
 
     @Test
-    void testSaveCountry2() {
+    @DirtiesContext
+    void testSaveCountry() {
         countryDao.save(exampleCountry);
         assertThat(exampleCountry,
-                is(countryDao.getAllCountries().findFirst()));
+                is(countryDao.getAllCountries().findFirst().get()));
         countryDao.remove(exampleCountry);
     }
 
     @Test
+    @DirtiesContext
     void testGetAllCountries() {
         SimpleCountry country = new SimpleCountry(1, "Canada", "CA");
         countryDao.save(country);
@@ -45,6 +48,7 @@ class CountryDaoImplTest {
     }
 
     @Test
+    @DirtiesContext
     void testGetCountryByName() {
         countryDao.save(exampleCountry);
         assertEquals(exampleCountry,
@@ -52,5 +56,4 @@ class CountryDaoImplTest {
                         .orElseThrow(RuntimeException::new));
         countryDao.remove(exampleCountry);
     }
-
 }
