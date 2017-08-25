@@ -11,7 +11,6 @@ public interface CountryDao {
 	void save(@NotNull Country country);
 
 	Stream<Country> getAllCountries();
-
 	default Optional<Country> getCountryByName(@NotNull String name) {
 		return getAllCountries()
 				.filter(country -> country.getName().equals(name))
