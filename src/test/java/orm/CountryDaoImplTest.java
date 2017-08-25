@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CountryDaoImplTest {
 
     private Country exampleCountry =
-            new SimpleCountry(1, "Australia", "AU");
+            new SimpleCountry(1, "Canada", "CA");
 
     @Autowired
     @Qualifier("countryJpaDaoImpl")
@@ -31,24 +33,23 @@ class CountryDaoImplTest {
     @Test
     void testSaveCountry2() {
         countryDao.save(exampleCountry);
-        assertThat(exampleCountry,
+        assertThat(Optional.of(exampleCountry),
                 is(countryDao.getAllCountries().findFirst()));
         countryDao.remove(exampleCountry);
     }
 
     @Test
     void testGetAllCountries() {
-        SimpleCountry country = new SimpleCountry(1, "Canada", "CA");
-        countryDao.save(country);
+        countryDao.save(exampleCountry);
         assertEquals(1, countryDao.getAllCountries().count());
-        countryDao.remove(country);
+        countryDao.remove(exampleCountry);
     }
 
     @Test
     void testGetCountryByName() {
         countryDao.save(exampleCountry);
         assertEquals(exampleCountry,
-                countryDao.getCountryByName("Australia")
+                countryDao.getCountryByName("Canada")
                         .orElseThrow(RuntimeException::new));
         countryDao.remove(exampleCountry);
     }
