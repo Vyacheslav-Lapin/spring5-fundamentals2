@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -14,30 +16,59 @@ public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
 
     @Override
     public void save(@NotNull Country country) {
-//		TODO: Implement it
-        EntityManager em = null;
-
-        if (em != null) {
-            em.close();
-        }
+        Optional.ofNullable(emf.createEntityManager())
+                .ifPresent(em -> {
+                    EntityTransaction transaction = em.getTransaction();
+                    transaction.begin();
+                    em.merge(country);
+                    transaction.commit();
+                    em.close();
+                });
     }
 
     @Override
     public Stream<Country> getAllCountries() {
-//	TODO: Implement it
-        return null;
+        Optional<EntityManager> entityManager = Optional.ofNullable(emf.createEntityManager());
+
+        Stream<Country> countries =
+                entityManager
+                        .map(em -> em
+                                .createQuery("from Country", Country.class)
+                                .getResultList())
+                        .map(List::stream)
+                        .orElseGet(Stream::empty);
+
+        entityManager.ifPresent(EntityManager::close);
+
+        return countries;
     }
 
     @Override
     public Optional<Country> getCountryByName(@NotNull String name) {
-//		TODO: Implement it
+        Optional<EntityManager> entityManager = Optional.ofNullable(emf.createEntityManager());
 
-        return null;
+        Optional<Country> country =
+                entityManager
+                        .map(em -> em
+                                .createQuery("SELECT c FROM Country c WHERE c.name LIKE :name",
+                                        Country.class).setParameter("name", name)
+                                .getSingleResult());
+
+        entityManager.ifPresent(EntityManager::close);
+
+        return country;
     }
 
     @Override
     public void remove(Country exampleCountry) {
-        // TODO: 23/08/2017 realize it!
+        Optional.ofNullable(emf.createEntityManager())
+                .ifPresent(em -> {
+                    EntityTransaction transaction = em.getTransaction();
+                    transaction.begin();
+                    em.detach(exampleCountry);
+                    transaction.commit();
+                    em.close();
+                });
     }
 
 }
