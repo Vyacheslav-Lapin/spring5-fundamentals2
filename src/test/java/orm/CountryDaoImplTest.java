@@ -7,12 +7,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Illustrates basic use of Hibernate as a JPA provider.
@@ -29,14 +33,24 @@ class CountryDaoImplTest {
     private CountryDao countryDao;
 
     @Test
+    @DirtiesContext
     void testSaveCountry2() {
         countryDao.save(exampleCountry);
-        assertThat(exampleCountry,
+        assertThat(Optional.of(exampleCountry),
                 is(countryDao.getAllCountries().findFirst()));
         countryDao.remove(exampleCountry);
     }
 
     @Test
+    @DirtiesContext
+    void testRemoveCountry() {
+        countryDao.save(exampleCountry);
+        countryDao.remove(exampleCountry);
+        assertEquals(Optional.empty(), countryDao.getCountryByCodeName("AU"));
+    }
+
+    @Test
+    @DirtiesContext
     void testGetAllCountries() {
         SimpleCountry country = new SimpleCountry(1, "Canada", "CA");
         countryDao.save(country);
@@ -45,6 +59,7 @@ class CountryDaoImplTest {
     }
 
     @Test
+    @DirtiesContext
     void testGetCountryByName() {
         countryDao.save(exampleCountry);
         assertEquals(exampleCountry,
@@ -52,5 +67,4 @@ class CountryDaoImplTest {
                         .orElseThrow(RuntimeException::new));
         countryDao.remove(exampleCountry);
     }
-
 }
