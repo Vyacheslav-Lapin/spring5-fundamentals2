@@ -56,6 +56,15 @@ public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
 
     @Override
     public void remove(Country exampleCountry) {
+
+        EntityManager em = lcemf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        em.remove(em.merge(exampleCountry));
+        transaction.commit();
+        if (em != null) {
+            em.close();
+        }
         // TODO: 23/08/2017 realize it!
     }
 
