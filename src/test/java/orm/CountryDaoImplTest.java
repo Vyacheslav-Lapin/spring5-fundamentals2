@@ -7,8 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -29,14 +32,17 @@ class CountryDaoImplTest {
     private CountryDao countryDao;
 
     @Test
+    @DirtiesContext
     void testSaveCountry2() {
         countryDao.save(exampleCountry);
-        assertThat(exampleCountry,
+
+        assertThat(Optional.of(exampleCountry),
                 is(countryDao.getAllCountries().findFirst()));
         countryDao.remove(exampleCountry);
     }
 
     @Test
+    @DirtiesContext
     void testGetAllCountries() {
         SimpleCountry country = new SimpleCountry(1, "Canada", "CA");
         countryDao.save(country);
@@ -45,6 +51,7 @@ class CountryDaoImplTest {
     }
 
     @Test
+    @DirtiesContext
     void testGetCountryByName() {
         countryDao.save(exampleCountry);
         assertEquals(exampleCountry,
