@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -14,9 +15,13 @@ public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
 
     @Override
     public void save(@NotNull Country country) {
-//		TODO: Implement it
-        EntityManager em = null;
+        EntityManager em = emf.createEntityManager();
+        @NotNull EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        em.merge(country);
+        transaction.commit();
 
+        //noinspection ConstantConditions
         if (em != null) {
             em.close();
         }
@@ -24,15 +29,37 @@ public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
 
     @Override
     public Stream<Country> getAllCountries() {
-//	TODO: Implement it
-        return null;
+        EntityManager em = emf.createEntityManager();
+
+        Stream<Country> countryStream = em.createQuery("SELECT c FROM Country c", Country.class)
+                .getResultList()
+                .stream();
+
+        //noinspection ConstantConditions
+        if (em != null) {
+            em.close();
+        }
+
+        return countryStream;
     }
 
     @Override
     public Optional<Country> getCountryByName(@NotNull String name) {
-//		TODO: Implement it
+        EntityManager em = emf.createEntityManager();
 
-        return null;
+        Optional<Country> country = Optional.ofNullable(
+                em.createQuery(
+                        "SELECT c FROM Country c WHERE c.name LIKE :name",
+                        Country.class)
+                        .setParameter("name", name)
+                        .getSingleResult());
+
+        //noinspection ConstantConditions
+        if (em != null) {
+            em.close();
+        }
+
+        return country;
     }
 
     @Override

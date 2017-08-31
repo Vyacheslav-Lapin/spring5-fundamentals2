@@ -27,6 +27,6 @@ public class PooledConnection implements Connection {
         if (connection.isReadOnly())
             connection.setReadOnly(false);
 
-        freeConnection.accept(connection);
+        freeConnection.accept(this);
     }
 }

@@ -2,6 +2,7 @@ group 'ru.training.javalab'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'war'
 
 sourceCompatibility = 1.8
 
@@ -27,7 +28,7 @@ dependencies {
             'aopalliance:aopalliance:+',
 
             // JDBC
-//            'com.mchange:c3p0:+',
+            'com.mchange:c3p0:+',
             'org.springframework:spring-jdbc:+',
 
             // ORM
@@ -35,6 +36,9 @@ dependencies {
             'org.hibernate:hibernate-validator:+',
             'org.hibernate:hibernate-java8:+',
             'org.springframework:spring-orm:+',
+
+            // MVC
+            'org.springframework:spring-webmvc:+',
 
             // Common
             'org.apache.logging.log4j:log4j-core:+',
