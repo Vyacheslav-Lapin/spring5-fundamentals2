@@ -22,9 +22,11 @@
 	<mvc:annotation-driven />
 
 	<bean id="viewResolver"
-		  class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/"
-		  p:suffix=".jsp"/>
+		  class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+	<!--p:suffix=".jsp"-->
+	<!--p:prefix="/WEB-INF/views/"-->
 
-	<bean id="userDao" class="lab.dao.HsqlUserDao" p:dataSource-ref="dataSource"/>
+	<bean id="userDao" class="lab.dao.HsqlUserDao"
+		  p:dataSource-ref="dataSource"/>
 
 </beans>

@@ -36,7 +36,7 @@ public class UserFormController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String get() {
 
-		return "adduserform";
+		return "/adduserform.jsp";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -45,7 +45,7 @@ public class UserFormController {
 		if (errors.hasErrors()) {
 
 			log.info("Adduserform validation failed.");
-			return  new ModelAndView("adduserform");
+			return  new ModelAndView("/adduserform.jsp");
 		} else {
 			
 			List<User> userList;
@@ -58,7 +58,7 @@ public class UserFormController {
 			userService.saveUser(user);
 			userList = userService.loadAllUsers();
 			
-			ModelAndView mav = new ModelAndView("userlistview");
+			ModelAndView mav = new ModelAndView("/userlistview.jsp");
 			mav.addObject("userList", userList);
 			
 			return mav;

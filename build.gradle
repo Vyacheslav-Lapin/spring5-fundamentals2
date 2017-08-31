@@ -40,6 +40,10 @@ dependencies {
             // MVC
             'org.springframework:spring-webmvc:+',
 
+            // JSTL
+            'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:+',
+            'org.glassfish.web:javax.servlet.jsp.jstl:+',
+
             // Common
             'org.apache.logging.log4j:log4j-core:+',
             'io.vavr:vavr:+'//,
