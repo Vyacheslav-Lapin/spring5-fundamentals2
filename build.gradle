@@ -46,7 +46,7 @@ dependencies {
 //            'org.codehaus.groovy:groovy-all:+',
 //            'com.aol.simplereact:cyclops-react:+'
 
-    testRuntime 'com.h2database:h2:+'
+    runtime 'com.h2database:h2:+'
 
     compileOnly 'org.projectlombok:lombok:+',
 //            'org.apache.tomcat:tomcat-api:+',

@@ -3,14 +3,13 @@ package lab.dao.jpa;
 import lab.dao.CountryDao;
 import lab.model.Country;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Repository
+//@Repository
 public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
 
     @Override

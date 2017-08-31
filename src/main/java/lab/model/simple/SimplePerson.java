@@ -6,14 +6,15 @@ import lab.model.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.List;
 
-@Entity(name = "person")
-@Table
-@Component("person")
+//@Entity(name = "person")
+//@Table
+//@Component("person")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
