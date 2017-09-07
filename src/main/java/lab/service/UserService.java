@@ -1,16 +1,15 @@
 package lab.service;
 
-import java.util.List;
-
 import lab.dao.UserDao;
-import lab.domain.User;
-
+import lab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional

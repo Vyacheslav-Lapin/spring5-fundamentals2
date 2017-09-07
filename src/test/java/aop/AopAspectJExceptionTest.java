@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration("classpath:aop.xml")
+@ContextConfiguration("classpath:jdbc.xml")
 class AopAspectJExceptionTest {
 
     @Autowired
@@ -43,6 +43,7 @@ class AopAspectJExceptionTest {
     @SneakyThrows
     void tearDown() {
         broke.set(person, false);
+        broke.setAccessible(false);
     }
 
     @Test

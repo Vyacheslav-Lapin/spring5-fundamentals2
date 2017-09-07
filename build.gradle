@@ -40,6 +40,10 @@ dependencies {
             // MVC
             'org.springframework:spring-webmvc:+',
 
+            // Quartz
+            'org.quartz-scheduler:quartz:+',
+            'org.springframework:spring-context-support:+',
+
             // JSTL
             'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:+',
             'org.glassfish.web:javax.servlet.jsp.jstl:+',

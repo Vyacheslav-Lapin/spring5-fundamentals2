@@ -5,19 +5,21 @@ import lab.model.Country;
 import lab.model.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
-//@Entity(name = "person")
-//@Table
-//@Component("person")
+@Entity(name = "person")
+@Table
+@Component("person")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "id")
 public class SimplePerson implements Person {
     @Id
     @GeneratedValue
@@ -27,7 +29,7 @@ public class SimplePerson implements Person {
 
     private String lastName;
 
-    @Column()
+    @Column
     private Country country;
 
     private int age;
@@ -39,4 +41,17 @@ public class SimplePerson implements Person {
     private boolean broke;
 
     private List<Contact> contacts;
+
+    @Autowired
+    public SimplePerson(
+            String firstName,
+            String lastName,
+            Country country,
+            int age,
+            float height,
+            boolean isProgrammer,
+            boolean broke,
+            List<Contact> contacts) {
+        this(Long.MIN_VALUE, firstName, lastName, country, age, height, isProgrammer, broke, contacts);
+    }
 }

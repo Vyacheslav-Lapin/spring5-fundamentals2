@@ -2,7 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:c="http://www.springframework.org/schema/c"
-       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
@@ -23,5 +22,10 @@
     <!--for country-->
     <bean id="name" class="java.lang.String" c:_0="Russia"/>
     <bean id="codeName" class="java.lang.String" c:_0="RU"/>
+
+    <bean id="country" class="lab.model.simple.SimpleCountry"
+          c:id="-9223372036854775808"
+          c:name-ref="name"
+          c:codeName-ref="codeName"/>
 
 </beans>

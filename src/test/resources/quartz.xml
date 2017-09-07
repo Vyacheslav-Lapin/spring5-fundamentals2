@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Compatible with Quartz 1.5+ as well as Quartz 2.0/2.1,as of Spring 3.1 -->
+    <bean id="schedulerFactoryBean"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
+
+    <!--NOTE: This convenience subclass does not work against Quartz 2.0. Use Quartz-->
+    <!--2.0's native JobDetailImpl class or the new Quartz 2.0 builder API instead.-->
+    <!--Alternatively, switch to Spring's JobDetailFactoryBean which largely is a-->
+    <!--drop-in replacement for this class and its properties and consistently works-->
+    <!--against Quartz 1.x as well as Quartz 2.0/2.1.-->
+    <!--<bean id="reportJob" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+
+    <bean id="reportJob"
+          class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
+          p:jobClass="lab.schedule.PrintingJob"/>
+
+    <beans profile="interval">
+
+        <!-- NOTE: This FactoryBean works against both Quartz 1.x and Quartz 2.0/2.1,
+            in contrast to the older SimpleTriggerBean class. -->
+        <!--suppress DuplicatedBeanNamesInspection -->
+        <bean id="reportTrigger"
+              class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean"/>
+    </beans>
+
+    <beans profile="cron">
+
+        <!--NOTE: This convenience subclass does not work against Quartz 2.0. Use Quartz-->
+        <!--2.0's native JobDetailImpl class or the new Quartz 2.0 builder API instead.-->
+        <!--Alternatively, switch to Spring's CronTriggerFactoryBean which largely is-->
+        <!--a drop-in replacement for this class and its properties and consistently-->
+        <!--works against Quartz 1.x as well as Quartz 2.0/2.1.-->
+        <!--<bean id="cronReportTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean"/>-->
+
+        <!--suppress DuplicatedBeanNamesInspection -->
+        <bean id="reportTrigger"
+              class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"/>
+    </beans>
+
+</beans>

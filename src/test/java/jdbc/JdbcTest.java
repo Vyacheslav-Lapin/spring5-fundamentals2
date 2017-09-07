@@ -1,7 +1,7 @@
 package jdbc;
 
 import lab.dao.jdbc.JdbcCountryDao;
-import lab.dao.jdbc.spring.SimpleJdbcCountryDao;
+import lab.dao.jdbc.SimpleJdbcCountryDao;
 import lab.model.Country;
 import lab.model.simple.SimpleCountry;
 import org.junit.jupiter.api.BeforeEach;

@@ -4,61 +4,35 @@ import lab.dao.CountryDao;
 import lab.model.Country;
 import org.jetbrains.annotations.NotNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 //@Repository
 public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
 
+    private static final String SELECT_COUNTRY_BY_NAME = "SELECT c FROM Country c WHERE c.name LIKE :name";
+    private static final String SELECT_COUNTRY = "SELECT c FROM Country c";
+
     @Override
     public void save(@NotNull Country country) {
-        EntityManager em = emf.createEntityManager();
-        @NotNull EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.merge(country);
-        transaction.commit();
-
-        //noinspection ConstantConditions
-        if (em != null) {
-            em.close();
-        }
+        withEntityManagerInTransaction(entityManager -> entityManager.merge(country));
     }
 
     @Override
     public Stream<Country> getAllCountries() {
-        EntityManager em = emf.createEntityManager();
-
-        Stream<Country> countryStream = em.createQuery("SELECT c FROM Country c", Country.class)
-                .getResultList()
-                .stream();
-
-        //noinspection ConstantConditions
-        if (em != null) {
-            em.close();
-        }
-
-        return countryStream;
+        return mapEntityManager(entityManager ->
+                entityManager.createQuery(SELECT_COUNTRY, Country.class)
+                        .getResultList()
+                        .stream());
     }
 
     @Override
     public Optional<Country> getCountryByName(@NotNull String name) {
-        EntityManager em = emf.createEntityManager();
-
-        Optional<Country> country = Optional.ofNullable(
-                em.createQuery(
-                        "SELECT c FROM Country c WHERE c.name LIKE :name",
-                        Country.class)
-                        .setParameter("name", name)
-                        .getSingleResult());
-
-        //noinspection ConstantConditions
-        if (em != null) {
-            em.close();
-        }
-
-        return country;
+        return Optional.ofNullable(
+                mapEntityManager(entityManager ->
+                        entityManager.createQuery(SELECT_COUNTRY_BY_NAME, Country.class)
+                                .setParameter("name", name)
+                                .getSingleResult()));
     }
 
     @Override

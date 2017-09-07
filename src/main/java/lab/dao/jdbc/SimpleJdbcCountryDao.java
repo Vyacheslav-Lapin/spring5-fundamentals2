@@ -1,8 +1,7 @@
-package lab.dao.jdbc.spring;
+package lab.dao.jdbc;
 
 import io.vavr.CheckedConsumer;
 import io.vavr.CheckedFunction1;
-import lab.dao.jdbc.JdbcCountryDao;
 import lab.model.Country;
 import lab.model.simple.SimpleCountry;
 import lombok.SneakyThrows;
@@ -18,25 +17,51 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 //@Component
 //@Qualifier("jdbcCountryDao")
 public class SimpleJdbcCountryDao extends NamedParameterJdbcDaoSupport implements JdbcCountryDao {
 
-    private static final String LOAD_COUNTRIES_SQL = "INSERT INTO country (name, code_name) VALUES ('%s', '%s');";
-    private static final String GET_ALL_COUNTRIES_SQL = "SELECT id, name, code_name FROM country";
-    private static final String GET_COUNTRIES_BY_NAME_SQL = "SELECT id, name, code_name FROM country WHERE name LIKE :name";
-    private static final String GET_COUNTRY_BY_NAME_SQL = "SELECT id, name, code_name FROM country WHERE name = '%s'";
-    private static final String GET_COUNTRY_BY_CODE_NAME_SQL = "SELECT id, name, code_name FROM country WHERE code_name = '%s'";
-    private static final String UPDATE_COUNTRY_NAME_SQL = "UPDATE country SET name='%s' WHERE code_name='%s'";
-    private static final String INSERT_COUNTRY_SQL = "INSERT INTO country (name, code_name) VALUES (?, ?)";
-
     private static final RowMapper<Country> COUNTRY_ROW_MAPPER = (resultSet, rowNum) ->
             new SimpleCountry(
                     resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("code_name"));
+
+    private final BiConsumer<String, String> addCountry = (name, codeName) -> withJdbcTemplate(jdbcTemplate ->
+            jdbcTemplate.execute(String.format(
+                    "INSERT INTO country (name, code_name) VALUES ('%s', '%s')", name, codeName)));
+
+    private final Supplier<Stream<Country>> getCountries = () -> mapJdbcTemplate(jdbcTemplate ->
+            jdbcTemplate.query("SELECT id, name, code_name FROM country", COUNTRY_ROW_MAPPER).stream());
+
+    private final Function<String, Stream<Country>> getCountriesByNameLike = name -> mapNamedParameterJdbcTemplate(
+            namedParameterJdbcTemplate ->
+                    namedParameterJdbcTemplate.query(
+                            "SELECT id, name, code_name FROM country WHERE name LIKE :name",
+                            new MapSqlParameterSource("name", name),
+                            COUNTRY_ROW_MAPPER)
+                            .stream());
+
+    private final Function<String, Stream<Country>> getCountriesByName = name -> mapJdbcTemplate(jdbcTemplate ->
+            jdbcTemplate.query(
+                    String.format("SELECT id, name, code_name FROM country WHERE name = '%s'", name),
+                    COUNTRY_ROW_MAPPER)
+                    .stream());
+
+    private final Function<String, Stream<Country>> getCountriesByCodeName = codeName -> mapJdbcTemplate(jdbcTemplate ->
+            jdbcTemplate.query(
+                    String.format("SELECT id, name, code_name FROM country WHERE code_name = '%s'", codeName),
+                    COUNTRY_ROW_MAPPER)
+                    .stream());
+
+    private static final String UPDATE_COUNTRY_NAME_SQL = "UPDATE country SET name='%s' WHERE code_name='%s'";
+    private static final String INSERT_COUNTRY_SQL = "INSERT INTO country (name, code_name) VALUES (?, ?)";
 
     @SneakyThrows
     private <T> T mapJdbcTemplate(CheckedFunction1<JdbcTemplate, T> jdbcTemplateMapper) {
@@ -92,19 +117,12 @@ public class SimpleJdbcCountryDao extends NamedParameterJdbcDaoSupport implement
 
     @Override
     public Stream<Country> getAllCountries() {
-        return mapJdbcTemplate(jdbcTemplate ->
-                jdbcTemplate
-                        .query(GET_ALL_COUNTRIES_SQL, COUNTRY_ROW_MAPPER)
-                        .stream());
+        return getCountries.get();
     }
 
     @Override
     public List<Country> getCountryListStartWith(String name) {
-        return mapNamedParameterJdbcTemplate(namedParameterJdbcTemplate ->
-                namedParameterJdbcTemplate.query(
-                        GET_COUNTRIES_BY_NAME_SQL,
-                        new MapSqlParameterSource("name", name + "%"),
-                        COUNTRY_ROW_MAPPER));
+        return getCountriesByNameLike.apply(name + "%").collect(Collectors.toList());
     }
 
     @Override
@@ -116,20 +134,13 @@ public class SimpleJdbcCountryDao extends NamedParameterJdbcDaoSupport implement
 
     @Override
     public void loadCountries() {
-        withJdbcTemplate(jdbcTemplate -> {
-            for (String[] countryData : COUNTRY_INIT_DATA)
-                jdbcTemplate.execute(
-                        String.format(LOAD_COUNTRIES_SQL,
-                                countryData[0],
-                                countryData[1]));
-        });
+        for (String[] countryData : COUNTRY_INIT_DATA)
+            addCountry.accept(countryData[0], countryData[1]);
     }
 
     @Override
     public Optional<Country> getCountryByCodeName(@NotNull String codeName) {
-        val sql = String.format(GET_COUNTRY_BY_CODE_NAME_SQL, codeName);
-        return mapJdbcTemplate(jdbcTemplate -> Optional.of(
-                jdbcTemplate.query(sql, COUNTRY_ROW_MAPPER).get(0)));
+        return getCountriesByCodeName.apply(codeName).findFirst();
     }
 
     @Override
@@ -139,9 +150,6 @@ public class SimpleJdbcCountryDao extends NamedParameterJdbcDaoSupport implement
 
     @Override
     public Optional<Country> getCountryByName(@NotNull String name) {
-        val sql = String.format(GET_COUNTRY_BY_NAME_SQL, name);
-        return mapJdbcTemplate(jdbcTemplate ->
-                jdbcTemplate.query(sql, COUNTRY_ROW_MAPPER).stream()
-                        .findAny());
+        return getCountriesByName.apply(name).findAny();
     }
 }

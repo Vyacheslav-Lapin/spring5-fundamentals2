@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration("classpath:aop.xml")
+@ContextConfiguration("classpath:jdbc.xml")
 class AopAspectJTest {
 
 	@Autowired

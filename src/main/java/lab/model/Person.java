@@ -2,15 +2,18 @@ package lab.model;
 
 import java.util.List;
 
-public interface Person {
+public interface Person extends User<Person> {
 
-    String getFirstName();
-    String getLastName();
     Country getCountry();
+
     int getAge();
+
     float getHeight();
+
     boolean isProgrammer();
+
     List<Contact> getContacts();
+
     boolean isBroke();
 
     default String getName() {
