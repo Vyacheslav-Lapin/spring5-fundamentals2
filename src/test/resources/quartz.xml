@@ -7,7 +7,13 @@
 
     <!-- Compatible with Quartz 1.5+ as well as Quartz 2.0/2.1,as of Spring 3.1 -->
     <bean id="schedulerFactoryBean"
-          class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="reportTrigger" />
+            </list>
+        </property>
+    </bean>
 
     <!--NOTE: This convenience subclass does not work against Quartz 2.0. Use Quartz-->
     <!--2.0's native JobDetailImpl class or the new Quartz 2.0 builder API instead.-->
@@ -26,7 +32,10 @@
             in contrast to the older SimpleTriggerBean class. -->
         <!--suppress DuplicatedBeanNamesInspection -->
         <bean id="reportTrigger"
-              class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean"/>
+              class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean"
+              p:startDelay="5000"
+              p:repeatInterval="1000"
+              p:jobDetail-ref="reportJob"/>
     </beans>
 
     <beans profile="cron">
@@ -40,7 +49,9 @@
 
         <!--suppress DuplicatedBeanNamesInspection -->
         <bean id="reportTrigger"
-              class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"/>
+              class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+              p:jobDetail-ref="reportJob"
+              p:cronExpression="0/3 * * ? 9 2"/>
     </beans>
 
 </beans>
